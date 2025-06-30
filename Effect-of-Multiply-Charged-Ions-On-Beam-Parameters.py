@@ -27,7 +27,7 @@ for f_xe2 in fractions:
     n2 = f_xe2
 
     # Beam current: I = q * n * v
-    I = n1 * e * v1 + n2 * 2 * e * v2
+    T = n1 * M_xe * v1 * v1 + n2 * M_xe * v2 * v2  # which simplifies to m_dot * v
     total_current.append(I)
 
     # Mass flow: m_dot = n * m * v
@@ -50,8 +50,13 @@ plt.plot(fractions, m_dot_norm, label='Normalized Mass Flow Rate')
 plt.plot(fractions, T_norm, label='Normalized Thrust')
 plt.xlabel('Fraction of Xe²⁺ in Beam')
 plt.ylabel('Normalized Value')
+plt.axvline(0.5, linestyle='--', color='gray', alpha=0.5)
 plt.title('Effect of Multiply Charged Ions on Beam Characteristics')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.savefig("ion_beam_characteristics.png")
+
+# Peaks 
+print("Max current at Xe2+ fraction:", fractions[np.argmax(total_current)])
+print("Max thrust at Xe2+ fraction:", fractions[np.argmax(thrust)])
